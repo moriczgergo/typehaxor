@@ -5,7 +5,7 @@
 // pv0
 //
 
-// PASTE THIS INTO THE CONSOLE WHEN THE RACE HAS STARTED, AND KEEP MOVING YOUR MOUSE OVER THE INPUT BOX //
+// PASTE THIS INTO THE CONSOLE (into 'top') WHEN THE RACE HAS STARTED, AND KEEP MOVING YOUR MOUSE OVER THE INPUT BOX //
 
 var speed = 40; // A number between ~40 and Infinity, specifies millisecond delay between character types.
 
@@ -21,20 +21,57 @@ var intervalId = setInterval(function() { //Type by specified delay, to avoid ch
     }
 }, speed);
 
-// SECOND CHEATING PROTECTION BYPASS ---- DOESN'T WORK //
+// TYPING CHALLENGE BYPASS --- ONLY USE WHEN THE TYPING CHALLENGE BOX HAS APPEARED //
 
-window.setInterval = function() {}; // Patch setInterval with empty function
-window.ZWb = function (a) { // Patch decider function to allow everything (NAY, this is just the display logic.)
-    var b, d, c, e;
-    Zb(new Ot(jf((S(),
-    S(),
-    X))));
-    b = new wu('Typing Challenge Passed',G0,true);
-    d = Se(K(Z, W, 205, [elb(new hz(z_), K(Bt, kb, 408, [K(eb, fb, 1, [GV, O + Tg(Yf(0), a.c)]), K(eb, fb, 1, [PT, O + ps((Fj(),
-    !Yo && (Yo = new Xo(bS,ns(),false)),
-    Fj(),
-    Yo), a.b)])])), _i('Congratulations! You are now certified as able to type ' + Tg(Yf(0), a.e) + eD, y_)]));
-    lA(X) && Xd(d, L2b(iP("to save your certified speed (so you don't have to take this test every time):"), new Xsb(b)));
-    b.i.hb(d);
-    Oj(b, new Tp(b,0.333))
+// Paste this not into 'top' in the Console, but into 'com.typeracer.guest.Guest'.
+
+window.interPwned = function(requestText) { // Create picture-grabber function
+    var parsedRequestText = requestText.split("|"); // Split request text
+    if (parsedRequestText[6].trim() == "getTypingChallenge") { // Check if API call is getTypingChallange, since aMb seems to be a universal xhr function
+        console.log("Pwned!"); // *waves*
+        var imageAddress = encodeURI(`http://play.typeracer.com/challenge?id=${parsedRequestText[8]}`); // grab & format the captcha image address
+        console.log(`Image Address: ${imageAddress}`); // log image address for debugging
+        alert(`PWNED! ${imageAddress}`); // alert image address
+        return imageAddress; // just random stuff
+    }
+    return null; // just random stuff
+};
+window.aMb = function (d, i, g) { // Patch HTTP Request function
+    var a, b, e, f, c;
+    c = YLb();
+    try {
+        ZLb(c, d.e, d.c)
+    } catch (a) {
+        a = mb(a);
+        if (N(a, 38)) {
+            b = a;
+            f = M(function() {
+                return new Gab(d.c)
+            });
+            dJb(f, M(function() {
+                return new tx((b.b == null && zm(b),
+                b.b))
+            }));
+            throw f
+        } else
+            throw a
+    }
+    $Lb(d, c);
+    e = new Eab(c,d.g,g);
+    _Lb(c, new Hab(e,g));
+    try {
+        var pwn = window.interPwned(i); // Inject our function in the client-side code
+        c.send(i)
+    } catch (a) {
+        a = mb(a);
+        if (N(a, 38)) {
+            b = a;
+            throw M(function() {
+                return new tx((b.b == null && zm(b),
+                b.b))
+            })
+        } else
+            throw a
+    }
+    return e
 };
